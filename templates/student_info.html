@@ -9,7 +9,7 @@
     <p> Github Account: {{ github }} </p>
 
     {% for project in performance %}
-        Title: {{ project[0] }}<br>
+        Title: <a href="/project?project={{ project[0] }}">{{ project[0] }}</a><br>
         Grade: {{ project[1] }}<br><br>
     {% endfor %}
 </body>

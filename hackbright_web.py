@@ -53,9 +53,27 @@ def new_student():
     return render_template("student_added.html",
                            github=github)
 
+@app.route("/project")
+def project_info():
+    """Will show title, description, max grade of a project"""
+    student_name =[]
 
+    project = request.args.get('project')
 
+    title, description, max_grade = hackbright.get_project_by_title(project)
+    github_grades = hackbright.get_grades_by_title(project)
 
+    for github, grades in github_grades:
+        first_name, last_name = hackbright.get_student_by_github(github)
+        student_name.append(first_name, last_name, grade)  ####
+
+    html_project = render_template("find_project.html",
+                                   title=title,
+                                   description=description,
+                                   max_grade=max_grade,
+                                   names=student_name)
+
+    return html_project
 
 if __name__ == "__main__":
     hackbright.connect_to_db(app)
